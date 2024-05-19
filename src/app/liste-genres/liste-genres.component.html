@@ -1,0 +1,25 @@
+<div class="container">
+
+    <div class="col-sm-4 col-md-4 col-lg-4 mb-4"> 
+       <app-update-genres  (genreUpdated)= "genreUpdated($event)"  [genre]="updatedG" [ajout]="ajout" ></app-update-genres>
+   </div>
+
+
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr> <th>Id</th><th>Nom Genre</th> <th>Modifier</th> <th>Supprimer</th> </tr>
+                </thead>
+                <tbody *ngFor="let g of genres">
+                    <tr>
+                        <td>{{g.idG}}</td>
+                        <td>{{g.nomG}}</td>
+                        <td><a class="btn btn-success"  (click)="updateG(g)">Editer</a></td>
+						<td><a class="btn btn-danger" (click)="supprimerGenre(g	)">Supprimer</a></td>  
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

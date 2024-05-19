@@ -1,0 +1,33 @@
+
+<div class="container">
+	<form class="form-inline">
+		<div class="form-group mx-sm-3 mb-2 mt-2 ">
+			<label>Nom Serie en tapant :</label> <br>
+			<input #nom [(ngModel)]="searchTerm" name="searchTerm" class="form-control">
+		</div>
+	</form>
+	<div class="card shadow mb-4">
+		<div class="card-body">
+			<table class="table table-striped">
+				<tr>
+					<th>Id</th>
+					<th>Nom</th>
+					<th>Nb De Saison</th>
+					<th>Date Sortie</th>
+					<th>Genre</th>
+
+				</tr>
+				<tbody *ngFor="let serie of series | searchFilter : searchTerm ">
+					<tr>
+						<td>{{serie.idSerie}}</td>
+						<td>{{serie.nomSerie}}</td>
+						<td>{{serie.nbSerie}}</td>
+						<td>{{serie.dateSortie | date:'dd/MM/yyyy'}}</td>
+						<td>{{serie.genre.nomG}}</td>
+
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
