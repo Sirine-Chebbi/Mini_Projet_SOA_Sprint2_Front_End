@@ -9,6 +9,8 @@ import { ListeGenresComponent } from './liste-genres/liste-genres.component';
 import { LoginComponent } from './login/login.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { SerieGuard } from './serie.guard';
+import { RegisterComponent } from './register/register.component';
+import { VerifEmailComponent } from './verif-email/verif-email.component';
 
 const routes: Routes = [
   {path: "series", component: SeriesComponent},
@@ -19,6 +21,8 @@ const routes: Routes = [
   {path: "listeGenres", component : ListeGenresComponent},
   {path: 'login', component: LoginComponent},
   {path: 'app-forbidden', component: ForbiddenComponent},
+  {path:'register',component:RegisterComponent},
+  { path: 'verifEmail', component: VerifEmailComponent },
   {path: "", redirectTo: "series", pathMatch: "full"}
 
 ];

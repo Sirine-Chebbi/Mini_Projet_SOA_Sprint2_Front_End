@@ -16,8 +16,10 @@ export class TokenInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
     const toExclude = "/login";
+
    //tester s'il sagit de login, on n'ajoute pas le header Authorization puisqu'on a 
    //pas encode de JWT (il est null)
+   
     if(request.url.search(toExclude) === -1){
        let jwt = this.authService.getToken();
        let reqWithToken = request.clone( {

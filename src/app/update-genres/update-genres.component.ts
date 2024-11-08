@@ -17,6 +17,7 @@ export class UpdateGenresComponent {
   @Output()
   genreUpdated = new EventEmitter<Genre>();
 
+
   constructor(){};
   ngOnInit(): void {
     //  console.log("ngOnInit du composant UpdateCategorie ",this.genre);

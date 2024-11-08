@@ -3,12 +3,14 @@ import { Serie } from '../model/serie.model';
 import { SerieService } from '../services/serie.service';
 import { AuthService } from '../services/auth.service';
 
+
 @Component({
   selector: 'app-series',
   templateUrl: './series.component.html',
   styleUrl: './series.component.css'
 })
 export class SeriesComponent implements OnInit {
+
 
   series? : Serie[]; //un tableau de produits
 
@@ -22,8 +24,11 @@ ngOnInit(): void {
 
 chargerSeries(){
   this.serieService.listeSeries().subscribe(sers => {
-    // console.log(sers);
-    this.series = sers;
+      //console.log(sers);
+      this.series = sers;
+      this.series.forEach((serie) => {
+        serie.imageStr = 'data:' + serie.images[0].type + ';base64,' + serie.images[0].image;
+      });
   });
   
   }

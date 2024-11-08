@@ -6,6 +6,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { apiURL } from '../config';
 import { GenreWrapper } from '../model/GenreWrapper.model';
 import { AuthService } from './auth.service';
+import { Image } from "../model/Image.model";
+
+const httpOptions = {
+  headers: new HttpHeaders( {'Content-Type': 'application/json'} )
+  }; 
+
 
 @Injectable({
   providedIn: 'root'
@@ -15,13 +21,16 @@ export class SerieService {
 
   series!: Serie[];
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
-  listeSeries(): Observable<Serie[]>{
-    return this.http.get<Serie[]>(apiURL+"/all");
-   }
-  /*listeSeries(): Observable<Serie[]> {
+  listeSeries(): Observable<Serie[]> {
     let jwt = this.authService.getToken();
+    jwt = "Bearer " + jwt;
+    let httpHeaders = new HttpHeaders({ "Authorization": jwt, "Content-Type": "application/json" });
+    return this.http.get<Serie[]>(apiURL + "/all",{ headers: httpHeaders });
+  }
+  /*listeSeries(): Observable<Serie[]> {
+    let jwt = this.au thService.getToken();
     jwt = "Bearer " + jwt;
     let httpHeaders = new HttpHeaders({ "Authorization": jwt, "Content-Type": "application/json" });
     return this.http.get<Serie[]>(apiURL + "/all", { headers: httpHeaders });
@@ -50,11 +59,11 @@ export class SerieService {
     return this.http.get<Serie>(url, { headers: httpHeaders });
   }
 
-  updateSerie(serie: Serie): Observable<Serie> {    
+  updateSerie(serie: Serie): Observable<Serie> {
     let jwt = this.authService.getToken();
     jwt = "Bearer " + jwt;
     let httpHeaders = new HttpHeaders({ "Authorization": jwt, "Content-Type": "application/json" });
-    return this.http.put<Serie>(apiURL + "/updateserie", serie, { headers: httpHeaders });
+    return this.http.put<Serie>(apiURL + "/updateSerie", serie, { headers: httpHeaders });
   }
 
   listeGenres(): Observable<GenreWrapper> {
@@ -109,4 +118,31 @@ export class SerieService {
     let httpHeaders = new HttpHeaders({ "Authorization": jwt, "Content-Type": "application/json" });
     return this.http.get<Serie[]>(url, { headers: httpHeaders });
   }
+
+  uploadImage(file: File, filename: string): Observable<Image> {
+    const imageFormData = new FormData();
+    imageFormData.append('image', file, filename);
+    const url = `${apiURL + '/image/upload'}`;
+    return this.http.post<Image>(url, imageFormData);
+  }
+
+
+  loadImage(id: number): Observable<Image> {
+    const url = `${apiURL + '/image/get/info'}/${id}`;
+    return this.http.get<Image>(url);
+  }
+
+  uploadImageSerie(file: File, filename: string, idSerie:number): Observable<any>{
+    const imageFormData = new FormData();
+    imageFormData.append('image', file, filename);
+    const url = `${apiURL + '/image/uplaodImageSerie'}/${idSerie}`;
+    return this.http.post(url, imageFormData);
+ }
+    
+ supprimerImage(id : number) {
+  const url = `${apiURL}/image/delete/${id}`;
+  return this.http.delete(url, httpOptions);
+  }
+
+
 }

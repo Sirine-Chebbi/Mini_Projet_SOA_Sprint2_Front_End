@@ -9,6 +9,7 @@
 					<th>Nb De Saison</th>
 					<th>Date Sortie</th>
 					<th>Genre</th>
+					<th>Image</th>
 					<th  *ngIf="authService.isAdmin()" >Suppression</th>
 					<th  *ngIf="authService.isAdmin()" >Modification</th>
 				</tr>
@@ -19,6 +20,10 @@
 						<td>{{serie.nbSerie}}</td>
 						<td>{{serie.dateSortie | date:'dd/MM/yyyy'}}</td>
 						<td>{{serie.genre.nomG}}</td>
+						<td><img class="card-img-top img-responsive"
+							src = "{{serie.imageStr}}"
+							style = "height :50px;width:100px">
+						</td>
 						<td><a *ngIf="authService.isAdmin()" class="btn btn-danger" (click)="supprimerSerie(serie)">Supprimer</a></td>
 						<td><a *ngIf="authService.isAdmin()" class="btn btn-success" [routerLink]="['/updateSerie',serie.idSerie]">Modifier</a></td>
 					</tr>
